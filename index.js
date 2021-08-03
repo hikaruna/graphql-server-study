@@ -18,21 +18,35 @@ const typeDefs = gql`
 const books = [
   {
     title: 'ジョジョの奇妙な冒険',
-    author: {
-      name: '荒木飛呂彦'
-    }
+    authorId: 'ihugeriluhe',
+   },
+  {
+    title: 'バオー',
+    authorId: 'ihugeriluhe',
   },
   {
     title: 'ドラゴンボール',
-    author: {
-      name: '鳥山明'
-    }
+    authorId: 'kndvn'
   }
+]
+
+const authors = [
+  {
+    id: 'ihugeriluhe',
+    name: '荒木飛呂彦',
+  },
+  {
+    id: 'kndvn',
+    name: '鳥山明',
+  },
 ]
 
 const resolvers = {
   Query: {
-    books: () => books
+    books: () => books.map(book => ({
+      title: book.title,
+      author: authors.find((author) => author.id === book.authorId),
+    }))
   }
 }
 
